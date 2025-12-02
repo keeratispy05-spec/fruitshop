@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>สั่งผลไม้</h2>
+
+<form id="orderForm">
+  ชื่อ: <input type="text" name="name" required><br><br>
+  เบอร์: <input type="text" name="phone" required><br><br>
+
+  <label>เลือกสินค้า:</label>
+  <select name="product" id="p">
+    <option value="มะม่วง">มะม่วง</option>
+    <option value="แตงโม">แตงโม</option>
+    <option value="ลำไย">ลำไย</option>
+  </select><br><br>
+
+  ที่อยู่: <input type="text" name="address" required><br><br>
+
+  ราคา: <input type="number" name="price" value="50"><br><br>
+
+  <button type="submit">สั่งซื้อ</button>
+</form>
+
+<script>
+document.getElementById("orderForm").addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const form = e.target;
+  const data = {
+    name: form.name.value,
+    phone: form.phone.value,
+    product: form.product.value,
+    address: form.address.value,
+    price: form.price.value
+  };
+
+  fetch("https://script.google.com/macros/s/AKfycbyphUWAvEE4JOUKDV1YmcTecJe6OKQnPI5qmrL5Jq3NSv7mocLFPpf0lqgo4lXk5Gro/exec", {   // <== ใส่ลิงก์ Script ของมึงตรงนี้!!
+    method: "POST",
+    contentType: "application/json",
+    body: JSON.stringify(data)
+  })
+  .then(res => alert("ส่งคำสั่งซื้อเรียบร้อย ❤️"))
+  .catch(err => alert("มีปัญหา: " + err));
+});
+</script>
+
+</body>
+</html>
